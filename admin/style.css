@@ -1,0 +1,159 @@
+/* Import Font dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Variabel Warna untuk Konsistensi */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --sidebar-bg: #2c3e50;
+    --sidebar-link: #bdc3c7;
+    --sidebar-hover: #34495e;
+    --sidebar-active: #0d6efd;
+    --content-bg: #f4f7f6;
+    --card-bg: #ffffff;
+    --border-color: #dee2e6;
+}
+
+/* Gaya Dasar */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--content-bg);
+    color: var(--dark-color);
+}
+
+/* --- Layout Utama --- */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    padding: 20px;
+    background-color: var(--sidebar-bg);
+    color: white;
+    transition: all 0.3s;
+}
+
+.main-content {
+    margin-left: 260px;
+    padding: 30px;
+}
+
+/* --- Sidebar Styling --- */
+.sidebar h3 {
+    color: #ecf0f1;
+    font-weight: 600;
+}
+
+.sidebar .nav-link {
+    color: var(--sidebar-link);
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.sidebar .nav-link:hover {
+    color: white;
+    background-color: var(--sidebar-hover);
+}
+
+.sidebar .nav-link.active {
+    color: white;
+    background-color: var(--sidebar-active);
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* --- Content Styling --- */
+h2 {
+    font-weight: 600;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* --- Tombol (Buttons) --- */
+.btn {
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Tabel (Tables) --- */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    vertical-align: middle;
+}
+
+.table thead th {
+    background-color: var(--light-color);
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table td, .table th {
+    padding: 1rem;
+}
+
+/* --- Status Badges --- */
+.badge {
+    padding: 0.5em 0.75em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+.bg-warning { background-color: #fff3cd !important; color: #664d03 !important; }
+.bg-info { background-color: #cff4fc !important; color: #055160 !important; }
+.bg-primary { background-color: #cfe2ff !important; color: #084298 !important; }
+.bg-success { background-color: #d1e7dd !important; color: #0f5132 !important; }
+.bg-danger { background-color: #f8d7da !important; color: #58151c !important; }
+
+/* --- Forms --- */
+.form-control, .form-select {
+    border-radius: 6px;
+    padding: 0.6rem 0.9rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+}
