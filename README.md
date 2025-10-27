@@ -52,47 +52,5 @@ Proyek ini kemungkinan besar dibangun menggunakan tumpukan teknologi berikut:
 * **Database:** MySQL
 * **Frontend:** HTML, CSS, JavaScript
 
-## 🚀 Cara Menjalankan Proyek (Instalasi Lokal)
-
-Jika Anda ingin menjalankan proyek ini di komputer lokal Anda, ikuti langkah-langkah berikut:
-
-1.  **Prasyarat:**
-    * Pastikan Anda memiliki server lokal seperti **XAMPP** atau **WAMP** yang sudah terinstal (yang mencakup Apache, PHP, dan MySQL).
-
-2.  **Clone Repositori:**
-    ```bash
-    git clone [https://github.com/username-anda/nama-repositori-anda.git](https://github.com/username-anda/nama-repositori-anda.git)
-    ```
-    Atau unduh file ZIP dan ekstrak.
-
-3.  **Pindahkan Folder Proyek:**
-    * Pindahkan folder proyek yang telah Anda clone/ekstrak ke dalam direktori `htdocs` (jika menggunakan XAMPP) atau `www` (jika menggunakan WAMP).
-
-4.  **Database Setup:**
-    * Buka **phpMyAdmin** (`http://localhost/phpmyadmin`).
-    * Buat database baru (misalnya: `db_sembako`).
-    * Impor file `.sql` yang ada di repositori ini (misalnya `database.sql`) ke dalam database `db_sembako` yang baru saja Anda buat.
-
-5.  **Konfigurasi Koneksi:**
-    * Cari file konfigurasi database di dalam folder proyek (misalnya `config.php` atau `koneksi.php`).
-    * Sesuaikan pengaturan koneksi database (nama host, username, password, dan nama database) dengan pengaturan lokal Anda.
-
-    ```php
-    <?php
-    $host = 'localhost';
-    $user = 'root'; // User default XAMPP
-    $pass = '';     // Password default XAMPP
-    $db   = 'db_sembako'; // Nama database yang Anda buat
-
-    $koneksi = mysqli_connect($host, $user, $pass, $db);
-    // ...
-    ?>
-    ```
-
-6.  **Jalankan Proyek:**
-    * Nyalakan modul **Apache** dan **MySQL** dari control panel XAMPP Anda.
-    * Buka browser Anda dan akses proyek melalui URL:
-        `http://localhost/nama-folder-proyek-anda`
-
 ---
 *Terima kasih telah mengunjungi repositori ini!*
