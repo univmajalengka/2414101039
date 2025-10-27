@@ -12,6 +12,7 @@ Proyek ini disusun untuk memenuhi tugas mata kuliah Pengembangan Aplikasi Berbas
 | :--- | :--- |
 | **Nama** | Muhamad Anugrah Aidil Akbar |
 | **NIM / NPM** | 2424101039 |
+| **Semester** | 3A |
 | **Program Studi** | Informatika |
 | **Fakultas** | Teknik |
 | **Universitas** | Universitas Majalengka |
