@@ -22,7 +22,7 @@ Berikut adalah beberapa tampilan dari website Sembako Maju Jaya:
 
 | Tampilan Utama (Hero) | Kategori & Produk Unggulan | Daftar Produk & Footer |
 | :---: | :---: | :---: |
-| <img src="Screenshot 2025-10-27 144718.jpg" alt="Homepage Sembako Maju Jaya" width="300"> | <img src="Screenshot 2025-10-27 144728.jpg" alt="Kategori dan Produk Unggulan" width="300"> | <img src="Screenshot 2025-10-27 144738.png" alt="Daftar Produk dan Footer" width="300"> |
+| <img src="Screenshot 2025-10-27 144718.png" alt="Homepage Sembako Maju Jaya" width="300"> | <img src="Screenshot 2025-10-27 144728.png" alt="Kategori dan Produk Unggulan" width="300"> | <img src="Screenshot 2025-10-27 144738.png" alt="Daftar Produk dan Footer" width="300"> |
 
 *(Catatan: Ganti nama file di atas jika berbeda, atau unggah gambar ke GitHub agar bisa tampil)*
 
