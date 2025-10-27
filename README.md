@@ -49,7 +49,7 @@ Proyek ini kemungkinan besar dibangun menggunakan tumpukan teknologi berikut:
 
 * **Backend:** PHP (Native)
 * **Database:** MySQL
-* **Frontend:** HTML, CSS, JavaScript (mungkin)
+* **Frontend:** HTML, CSS, JavaScript
 
 ## 🚀 Cara Menjalankan Proyek (Instalasi Lokal)
 
