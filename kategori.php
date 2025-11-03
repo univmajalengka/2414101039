@@ -1,35 +1,28 @@
 <?php 
 include 'includes/header.php'; 
-
-// Cek slug
 if(!isset($_GET['slug'])) {
-    // Tampilkan pesan error jika tidak ada slug
     echo "<div class='container my-5 text-center'><h2>Kategori tidak ditemukan.</h2><a href='index.php' class='btn btn-success'>Kembali ke Beranda</a></div>";
     include 'includes/footer.php';
     exit();
 }
-$slug = $_GET['slug'];
 
-// Ambil info kategori
+$slug = $_GET['slug'];
 $stmt_cat = $conn->prepare("SELECT id, name FROM categories WHERE slug = ?");
 $stmt_cat->bind_param("s", $slug);
 $stmt_cat->execute();
-$result_cat = $stmt_cat->get_result();
-if($result_cat->num_rows == 0) {
-    // Tampilkan pesan error jika slug tidak valid
+
+$stmt_cat->bind_result($category_id, $category_name);
+
+if(!$stmt_cat->fetch()) {
     echo "<div class='container my-5 text-center'><h2>Kategori tidak ditemukan.</h2><a href='index.php' class='btn btn-success'>Kembali ke Beranda</a></div>";
     include 'includes/footer.php';
     exit();
 }
-$category = $result_cat->fetch_assoc();
-$category_id = $category['id'];
-$category_name = $category['name'];
+$category = ['id' => $category_id, 'name' => $category_name];
 $stmt_cat->close();
 
 
-// --- LOGIKA UNTUK SORTING DAN PAGINASI ---
 
-// 1. Sorting
 $sort_options = [
     'latest' => 'p.id DESC',
     'price_asc' => 'p.price ASC',
@@ -39,26 +32,43 @@ $sort_options = [
 $sort_key = $_GET['sort'] ?? 'latest';
 $order_by = $sort_options[$sort_key] ?? 'p.id DESC';
 
-// 2. Paginasi
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$products_per_page = 8; // Tampilkan 8 produk per halaman
+$products_per_page = 8;
 $offset = ($page - 1) * $products_per_page;
 
-// Hitung total produk untuk paginasi
 $stmt_count = $conn->prepare("SELECT COUNT(id) as total FROM products WHERE category_id = ? AND is_active = 1");
 $stmt_count->bind_param("i", $category_id);
 $stmt_count->execute();
-$total_products = $stmt_count->get_result()->fetch_assoc()['total'];
-$total_pages = ceil($total_products / $products_per_page);
-$stmt_count->close();
 
-// Query utama untuk mengambil produk dengan sorting dan limit
-$sql_prod = "SELECT * FROM products p WHERE p.category_id = ? AND p.is_active = 1 ORDER BY $order_by LIMIT ? OFFSET ?";
+$stmt_count->bind_result($total_products);
+$stmt_count->fetch(); 
+$stmt_count->close(); 
+$total_pages = ceil($total_products / $products_per_page);
+
+
+$sql_prod = "SELECT p.id, p.main_image, p.name, p.price, p.normal_price, p.stock 
+             FROM products p 
+             WHERE p.category_id = ? AND p.is_active = 1 
+             ORDER BY $order_by 
+             LIMIT ? OFFSET ?";
 $stmt_prod = $conn->prepare($sql_prod);
 $stmt_prod->bind_param("iii", $category_id, $products_per_page, $offset);
 $stmt_prod->execute();
-$result_products = $stmt_prod->get_result();
 
+$stmt_prod->bind_result($p_id, $p_main_img, $p_name, $p_price, $p_norm_price, $p_stock);
+
+$products_list = [];
+while ($stmt_prod->fetch()) {
+    $products_list[] = [
+        'id' => $p_id,
+        'main_image' => $p_main_img,
+        'name' => $p_name,
+        'price' => $p_price,
+        'normal_price' => $p_norm_price,
+        'stock' => $p_stock
+    ];
+}
+$stmt_prod->close();
 ?>
 
 <div class="container my-5">
@@ -74,7 +84,7 @@ $result_products = $stmt_prod->get_result();
     </div>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <span class="text-muted">Menampilkan <?php echo $result_products->num_rows; ?> dari <?php echo $total_products; ?> produk</span>
+        <span class="text-muted">Menampilkan <?php echo count($products_list); ?> dari <?php echo $total_products; ?> produk</span>
         <form method="GET" class="d-flex align-items-center">
             <input type="hidden" name="slug" value="<?php echo $slug; ?>">
             <label for="sort" class="form-label me-2 mb-0">Urutkan:</label>
@@ -88,8 +98,8 @@ $result_products = $stmt_prod->get_result();
     </div>
 
     <div class="row g-4">
-    <?php if ($result_products->num_rows > 0): ?>
-        <?php while($product = $result_products->fetch_assoc()): ?>
+    <?php if (count($products_list) > 0): ?>
+        <?php foreach($products_list as $product): ?>
             <div class="col-md-6 col-lg-3">
                 <div class="card product-card h-100">
                     
@@ -123,14 +133,13 @@ $result_products = $stmt_prod->get_result();
                     </div>
                     </div>
             </div>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
     <?php else: ?>
         <div class="col-12 text-center py-5">
             <h4>Oops, belum ada produk di kategori ini.</h4>
             <p class="text-muted">Coba lihat kategori lainnya!</p>
         </div>
     <?php endif; ?>
-    <?php $stmt_prod->close(); ?>
 </div>
 
     <?php if($total_pages > 1): ?>

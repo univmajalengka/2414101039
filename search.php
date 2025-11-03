@@ -9,17 +9,35 @@ if (empty($keyword)) {
 }
 
 // Persiapkan keyword untuk query LIKE agar lebih relevan
-// Tanda '%' berarti "cocok dengan teks apa pun"
 $search_term = "%" . $keyword . "%";
 
+// --- PERBAIKAN DIMULAI DARI SINI ---
+
 // Query untuk mencari produk berdasarkan nama atau deskripsi
-// WHERE name LIKE ? akan mencari produk yang namanya mengandung kata kunci
-$sql = "SELECT * FROM products WHERE name LIKE ? AND is_active = 1";
+// Ganti SELECT * dengan kolom spesifik untuk performa lebih baik dan kompatibilitas bind_result()
+$sql = "SELECT id, main_image, name, price, stock FROM products WHERE name LIKE ? AND is_active = 1";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $search_term);
 $stmt->execute();
-$result_products = $stmt->get_result();
-$total_found = $result_products->num_rows;
+
+// Bind kolom hasil ke variabel
+$stmt->bind_result($p_id, $p_main_image, $p_name, $p_price, $p_stock);
+
+// Simpan semua hasil ke dalam sebuah array
+$products_list = [];
+while ($stmt->fetch()) {
+    $products_list[] = [
+        'id' => $p_id,
+        'main_image' => $p_main_image,
+        'name' => $p_name,
+        'price' => $p_price,
+        'stock' => $p_stock
+    ];
+}
+// Hitung total produk yang ditemukan dari array
+$total_found = count($products_list);
+// --- AKHIR PERBAIKAN ---
+
 ?>
 
 <div class="container my-5">
@@ -31,7 +49,7 @@ $total_found = $result_products->num_rows;
 
     <div class="row g-4">
         <?php if ($total_found > 0): ?>
-            <?php while($product = $result_products->fetch_assoc()): ?>
+            <?php foreach($products_list as $product): ?>
                 <div class="col-md-6 col-lg-3">
                     <div class="card product-card h-100">
                         <a href="produk.php?id=<?php echo $product['id']; ?>">
@@ -60,7 +78,7 @@ $total_found = $result_products->num_rows;
                         </div>
                     </div>
                 </div>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
         <?php else: ?>
             <div class="col-12 text-center py-5">
                 <i class="fas fa-search fa-4x text-muted mb-3"></i>

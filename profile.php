@@ -10,12 +10,29 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $page = 'profil'; // Tandai halaman aktif
 
+// --- PERBAIKAN DI BLOK INI ---
 // Ambil data user
 $stmt = $conn->prepare("SELECT name, email, phone, address, profile_pic FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
-$user = $stmt->get_result()->fetch_assoc();
+
+// Bind kolom hasil ke variabel
+$stmt->bind_result($user_name, $user_email, $user_phone, $user_address, $user_profile_pic);
+
+// Fetch datanya
+$stmt->fetch();
+
+// Buat array $user secara manual agar kompatibel dengan sisa kode
+$user = [
+    'name' => $user_name,
+    'email' => $user_email,
+    'phone' => $user_phone,
+    'address' => $user_address,
+    'profile_pic' => $user_profile_pic
+];
+
 $stmt->close();
+// --- AKHIR PERBAIKAN ---
 ?>
 <link rel="stylesheet" href="assets/css/dashboard.css">
 

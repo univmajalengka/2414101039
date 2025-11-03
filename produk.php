@@ -9,31 +9,55 @@ if(!isset($_GET['id'])) {
 
 $product_id = intval($_GET['id']);
 
-// Ambil data produk utama
-$stmt = $conn->prepare("SELECT p.*, c.name as category_name, c.slug as category_slug FROM products p 
-                        LEFT JOIN categories c ON p.category_id = c.id 
-                        WHERE p.id = ? AND p.is_active = 1");
+$sql = "SELECT p.id, p.category_id, p.name, p.long_description, p.price, p.normal_price, p.stock, p.main_image, p.is_active, 
+               c.name as category_name, c.slug as category_slug 
+        FROM products p 
+        LEFT JOIN categories c ON p.category_id = c.id 
+        WHERE p.id = ? AND p.is_active = 1";
+$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $product_id);
 $stmt->execute();
-$result = $stmt->get_result();
-if($result->num_rows == 0) {
+
+$stmt->bind_result(
+    $p_id, $p_cat_id, $p_name, $p_desc, $p_price, $p_norm_price, $p_stock, $p_main_img, $p_is_active, 
+    $c_name, $c_slug
+);
+
+$product = null;
+if ($stmt->fetch()) {
+    $product = [
+        'id' => $p_id,
+        'category_id' => $p_cat_id,
+        'name' => $p_name,
+        'long_description' => $p_desc,
+        'price' => $p_price,
+        'normal_price' => $p_norm_price,
+        'stock' => $p_stock,
+        'main_image' => $p_main_img,
+        'is_active' => $p_is_active,
+        'category_name' => $c_name,
+        'category_slug' => $c_slug
+    ];
+}
+$stmt->close();
+
+if($product === null) {
     echo "<div class='container my-5'><div class='alert alert-danger'>Produk tidak ditemukan atau tidak aktif.</div></div>";
     include 'includes/footer.php';
     exit();
 }
-$product = $result->fetch_assoc();
-$stmt->close();
-
-// Ambil gambar-gambar produk (untuk slider)
 $stmt_images = $conn->prepare("SELECT image_path FROM product_images WHERE product_id = ? ORDER BY sort_order");
 $stmt_images->bind_param("i", $product_id);
 $stmt_images->execute();
-$result_images = $stmt_images->get_result();
+
+$stmt_images->bind_result($image_path);
+
 $product_images = [];
-while($row = $result_images->fetch_assoc()){
-    $product_images[] = $row['image_path'];
+while($stmt_images->fetch()){
+    $product_images[] = $image_path;
 }
 $stmt_images->close();
+// --- AKHIR PERUBAHAN ---
 ?>
 
 <div class="container my-5">

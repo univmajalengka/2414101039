@@ -1,5 +1,4 @@
 <?php include 'includes/header.php'; ?>
-
 <header class="hero-section">
     <div class="container">
         <div class="row justify-content-center text-center">
@@ -22,7 +21,6 @@
         </div>
         <div class="category-grid">
             <?php
-            // Ambil data kategori dari database
             $sql_categories = "SELECT * FROM categories ORDER BY name ASC";
             $result_categories = $conn->query($sql_categories);
             $icons = ['fa-seedling', 'fa-pepper-hot', 'fa-utensils', 'fa-tint', 'fa-egg'];
@@ -50,7 +48,6 @@
         <h2 class="text-center fw-bold mb-5">Produk Unggulan</h2>
         
         <?php
-        // PERBAIKAN: Hapus LIMIT 4 untuk mengambil semua produk unggulan
         $sql_products = "SELECT p.*, c.name as category_name FROM products p 
                          LEFT JOIN categories c ON p.category_id = c.id 
                          WHERE p.is_featured = 1 AND p.is_active = 1";

@@ -14,7 +14,14 @@ $page = 'pesanan'; // Variabel untuk menandai halaman aktif di sidebar
 $stmt_user = $conn->prepare("SELECT name, email, profile_pic FROM users WHERE id = ?");
 $stmt_user->bind_param("i", $user_id);
 $stmt_user->execute();
-$user_info = $stmt_user->get_result()->fetch_assoc();
+
+// --- PERBAIKAN 1 (User Info) ---
+$stmt_user->store_result();
+$stmt_user->bind_result($user_name, $user_email, $user_profile_pic);
+$stmt_user->fetch();
+$user_info = ['name' => $user_name, 'email' => $user_email, 'profile_pic' => $user_profile_pic];
+// --- Akhir Perbaikan 1 ---
+
 $stmt_user->close();
 
 // Ambil semua data pesanan dengan order_number
@@ -22,8 +29,13 @@ $sql = "SELECT id, order_number, order_date, total_price, status FROM orders WHE
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
-$orders = $stmt->get_result();
-$stmt->close();
+
+// --- PERBAIKAN 2 (Daftar Pesanan) ---
+$stmt->store_result();
+$stmt->bind_result($order_id, $order_number, $order_date, $order_total_price, $order_status);
+// $orders = $stmt->get_result(); // Dihapus
+// $stmt->close(); // Dipindahkan ke setelah loop
+// --- Akhir Perbaikan 2 ---
 ?>
 <link rel="stylesheet" href="assets/css/dashboard.css">
 
@@ -37,7 +49,7 @@ $stmt->close();
                     <p class="text-muted small text-truncate"><?php echo htmlspecialchars($user_info['email']); ?></p>
                 </div>
                 <nav class="nav flex-column">
-                    <a class="nav-link <?php echo ($page == 'profil') ? 'active' : ''; ?>" href="profil.php"><i class="fas fa-user-edit"></i> Profil Saya</a>
+                    <a class="nav-link <?php echo ($page == 'profil') ? 'active' : ''; ?>" href="profile.php"><i class="fas fa-user-edit"></i> Profil Saya</a>
                     <a class="nav-link <?php echo ($page == 'pesanan') ? 'active' : ''; ?>" href="pesanan_saya.php"><i class="fas fa-receipt"></i> Riwayat Pesanan</a>
                     <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </nav>
@@ -50,7 +62,7 @@ $stmt->close();
                     <h4>Riwayat Pesanan Saya</h4>
                 </div>
                 <div class="content-card-body">
-                    <?php if ($orders->num_rows === 0): ?>
+                    <?php if ($stmt->num_rows === 0): ?>
                         <div class="text-center py-5">
                             <i class="fas fa-receipt fa-4x text-muted mb-3"></i>
                             <h4 class="text-muted">Anda belum memiliki riwayat pesanan.</h4>
@@ -58,7 +70,18 @@ $stmt->close();
                         </div>
                     <?php else: ?>
                         <div class="accordion order-history" id="orderHistoryAccordion">
-                            <?php while ($order = $orders->fetch_assoc()) : ?>
+                            
+                            <?php while ($stmt->fetch()) : ?>
+                            <?php
+                            // Buat array $order secara manual dari variabel yang di-bind
+                            $order = [
+                                'id' => $order_id, 
+                                'order_number' => $order_number, 
+                                'order_date' => $order_date, 
+                                'total_price' => $order_total_price, 
+                                'status' => $order_status
+                            ];
+                            ?>
                             <div class="accordion-item mb-3">
                                 <h2 class="accordion-header" id="heading-<?php echo $order['id']; ?>">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<?php echo $order['id']; ?>">
@@ -87,10 +110,25 @@ $stmt->close();
                                         $detail_stmt = $conn->prepare($detail_sql);
                                         $detail_stmt->bind_param("i", $order['id']);
                                         $detail_stmt->execute();
-                                        $details = $detail_stmt->get_result();
+                                        
+                                        // --- PERBAIKAN 5 (Detail Item) ---
+                                        $detail_stmt->store_result();
+                                        $detail_stmt->bind_result($item_quantity, $item_unit_price, $item_name, $item_main_image);
+                                        // $details = $detail_stmt->get_result(); // Dihapus
+                                        // --- Akhir Perbaikan 5 ---
                                         ?>
                                         <ul class="list-group list-group-flush">
-                                            <?php while ($item = $details->fetch_assoc()) : ?>
+                                            
+                                            <?php while ($detail_stmt->fetch()) : ?>
+                                            <?php
+                                            // Buat array $item secara manual
+                                            $item = [
+                                                'quantity' => $item_quantity, 
+                                                'unit_price' => $item_unit_price, 
+                                                'name' => $item_name, 
+                                                'main_image' => $item_main_image
+                                            ];
+                                            ?>
                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                                     <div class="d-flex align-items-center">
                                                         <img src="<?php echo htmlspecialchars($item['main_image']); ?>" width="50" class="rounded me-3">
@@ -102,7 +140,8 @@ $stmt->close();
                                                     <span class="fw-semibold">Rp <?php echo number_format($item['quantity'] * $item['unit_price']); ?></span>
                                                 </li>
                                             <?php endwhile;
-                                            $detail_stmt->close(); ?>
+                                            $detail_stmt->close(); // Ini sudah benar di sini
+                                            ?>
                                         </ul>
                                         <hr>
                                         <div class="text-end">
@@ -111,7 +150,9 @@ $stmt->close();
                                     </div>
                                 </div>
                             </div>
-                            <?php endwhile; ?>
+                            <?php endwhile; 
+                            $stmt->close(); // <-- PERBAIKAN 7: $stmt ditutup di sini setelah loop selesai
+                            ?>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -119,7 +160,5 @@ $stmt->close();
         </div>
     </div>
 </div>
-
-
 
 <?php include 'includes/footer.php'; ?>
