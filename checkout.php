@@ -8,17 +8,28 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Keranjang tidak boleh kosong
-if (empty($_SESSION['cart'])) {
-    header("Location: keranjang.php");
-    exit();
-}
-
 // Ambil data user untuk diisi otomatis ke form
 $user_id = $_SESSION['user_id'];
 $stmt = $conn->prepare("SELECT name, email, phone, address FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
-$user = $stmt->get_result()->fetch_assoc();
+
+// --- PERBAIKAN ---
+// 1. Bind hasil ke variabel PHP (sesuai urutan SELECT)
+$stmt->bind_result($user_name, $user_email, $user_phone, $user_address);
+
+// 2. Fetch data (karena hanya 1 user, fetch() sekali saja)
+$stmt->fetch();
+
+// 3. Buat array $user secara manual agar sisa kode tetap berfungsi
+$user = [
+    'name' => $user_name,
+    'email' => $user_email,
+    'phone' => $user_phone,
+    'address' => $user_address
+];
+// --- AKHIR PERBAIKAN ---
+
 $stmt->close();
 
 // Hitung ulang total belanja dari database untuk keamanan
