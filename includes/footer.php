@@ -2,9 +2,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+
+                <img src="assets/images/1000273498-01.png" 
+                     alt="Foto Pemilik" 
+                     class="img-fluid rounded-circle mb-3" 
+                     style="width: 100px; height: 100px; object-fit: cover;">
                 <h6>Sembako Maju Jaya</h6>
                 <p>Menyediakan kebutuhan pokok berkualitas dengan harga terbaik. Belanja mudah, cepat, dan aman dari rumah Anda.</p>
-                </div>
+            </div>
 
             <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
                 <h6>Kategori</h6>

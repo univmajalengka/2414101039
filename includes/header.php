@@ -63,6 +63,9 @@ if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
                     <li class="nav-item ms-lg-2">
                         <a class="btn btn-success" href="register.php">Daftar</a>
                     </li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-success" href="admin/login.php">Login Admin</a>
+                    </li>
                 <?php endif; ?>
             </ul>
         </div>
