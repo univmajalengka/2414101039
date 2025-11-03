@@ -14,13 +14,43 @@ if (isset($_GET['id'])) {
     $is_edit = true;
     $page_title = 'Edit Produk';
     $id = intval($_GET['id']);
-    $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+    
+    // --- PERUBAHAN DIMULAI DI SINI ---
+    
+    // 1. Ganti "SELECT *" dengan nama kolom yang spesifik agar urutan bind_result pasti benar
+    $stmt = $conn->prepare("SELECT id, category_id, name, short_description, long_description, price, normal_price, stock, is_featured, main_image FROM products WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    $result = $stmt->get_result();
-    if($result->num_rows > 0) {
-        $product = $result->fetch_assoc();
+    
+    // 2. Gunakan store_result() untuk menyimpan hasil
+    $stmt->store_result(); 
+
+    // 3. Cek num_rows dari $stmt
+    if($stmt->num_rows > 0) {
+        // 4. Bind semua kolom ke variabel
+        $stmt->bind_result(
+            $p_id, $p_category_id, $p_name, $p_short_description, $p_long_description,
+            $p_price, $p_normal_price, $p_stock, $p_is_featured, $p_main_image
+        );
+        
+        // 5. Fetch datanya ke variabel
+        $stmt->fetch();
+        
+        // 6. Buat ulang array $product dari variabel-variabel tadi
+        $product = [
+            'id' => $p_id, 
+            'category_id' => $p_category_id, 
+            'name' => $p_name, 
+            'short_description' => $p_short_description, 
+            'long_description' => $p_long_description,
+            'price' => $p_price, 
+            'normal_price' => $p_normal_price, 
+            'stock' => $p_stock, 
+            'is_featured' => $p_is_featured, 
+            'main_image' => $p_main_image
+        ];
     }
+    // --- PERUBAHAN BERAKHIR DI SINI ---
     $stmt->close();
 }
 

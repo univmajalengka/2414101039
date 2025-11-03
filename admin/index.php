@@ -1,15 +1,11 @@
 <?php
-// Di dunia nyata, Anda harus menambahkan sistem login admin yang aman di sini.
-// Untuk sekarang, kita asumsikan admin sudah login.
 require_once 'session_check.php';
 require_once '../includes/db_connect.php';
 
-// Query untuk menghitung pesanan yang masih 'PENDING'
 $sql_pending_orders = "SELECT COUNT(id) as total FROM orders WHERE status = 'PENDING'";
 $result_pending = $conn->query($sql_pending_orders);
 $pending_orders_count = $result_pending->fetch_assoc()['total'];
 
-// Query untuk menghitung total produk
 $sql_total_products = "SELECT COUNT(id) as total FROM products WHERE is_active = 1";
 $result_products = $conn->query($sql_total_products);
 $total_products_count = $result_products->fetch_assoc()['total'];

@@ -15,18 +15,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("SELECT id, name, password, level FROM admin_users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
-    $result = $stmt->get_result();
+    
+    // --- PERUBAHAN DIMULAI DI SINI ---
 
-    if ($result->num_rows === 1) {
-        $admin = $result->fetch_assoc();
-        if (password_verify($password, $admin['password'])) {
-            $_SESSION['admin_id'] = $admin['id'];
-            $_SESSION['admin_name'] = $admin['name'];
-            $_SESSION['admin_level'] = $admin['level'];
+    // 1. Simpan hasil ke buffer
+    $stmt->store_result(); 
+
+    // 2. Cek jumlah baris dari statement, bukan dari $result
+    if ($stmt->num_rows === 1) {
+        
+        // 3. Bind kolom hasil (id, name, password, level) ke variabel
+        $stmt->bind_result($admin_id, $admin_name, $admin_password, $admin_level);
+        
+        // 4. Fetch (ambil) data ke variabel yang sudah di-bind
+        $stmt->fetch(); 
+
+        // 5. Verifikasi password menggunakan variabel hasil bind
+        if (password_verify($password, $admin_password)) {
+            
+            // 6. Set session menggunakan variabel hasil bind
+            $_SESSION['admin_id'] = $admin_id;
+            $_SESSION['admin_name'] = $admin_name;
+            $_SESSION['admin_level'] = $admin_level;
             header('Location: index.php');
             exit();
         }
     }
+    // --- PERUBAHAN BERAKHIR DI SINI ---
+
     $error = 'Username atau password salah!';
 }
 ?>

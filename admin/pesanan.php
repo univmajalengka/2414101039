@@ -2,7 +2,6 @@
 require_once 'session_check.php';
 require_once '../includes/db_connect.php';
 
-// Proses update status jika ada form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
     $order_id = $_POST['order_id'];
     $status = $_POST['status'];
@@ -13,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_status'])) {
     $stmt->close();
 }
 
-// PERUBAHAN 1: Ambil 'order_number' dari database
 $sql = "SELECT o.id, o.order_number, u.name as customer_name, o.order_date, o.total_price, o.status 
         FROM orders o 
         JOIN users u ON o.user_id = u.id 
