@@ -1,0 +1,424 @@
+/* Import Font */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Gojek-like Colors */
+:root {
+    --primary-green: #198754; /* Bootstrap's success color */
+    --dark-text: #333;
+    --light-text: #666;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1584680226833-0d680d0a7a94?q=80&w=2070&auto=format&fit=crop');
+    height: 60vh;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Navbar */
+.navbar-brand {
+    color: var(--primary-green) !important;
+}
+
+.btn-success {
+    background-color: var(--primary-green) !important;
+    border: none;
+}
+
+.btn-outline-success {
+    color: var(--primary-green) !important;
+    border-color: var(--primary-green) !important;
+}
+
+.btn-outline-success:hover {
+    background-color: var(--primary-green) !important;
+    color: white !important;
+}
+
+/* Category Section */
+.category-card {
+    text-decoration: none;
+    color: var(--dark-text);
+    transition: transform 0.2s ease-in-out;
+    display: block;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background-color: #e9f5ee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-green);
+    transition: background-color 0.2s;
+}
+
+.category-card:hover .icon-circle {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+/* Product Card */
+.product-card {
+    border: 1px solid #eee;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.product-card .card-img-top {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.product-card .card-title a:hover {
+    color: var(--primary-green) !important;
+}
+
+/* --- Toast Notification Styling --- */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1090; /* Di atas segalanya */
+}
+
+.toast-notification {
+    background-color: #2c3e50; /* Dark blue-grey */
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.4s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-notification .toast-icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.toast-notification.success {
+    background-color: #198754; /* Green */
+}
+
+.toast-notification.error {
+    background-color: #dc3545; /* Red */
+}
+
+/* --- Halaman Kategori Styling --- */
+.category-banner {
+    padding: 3rem 0;
+    background-color: #f8f9fa; /* Warna latar yang lembut */
+    border-radius: 18px;
+    margin-bottom: 2.5rem;
+}
+
+.category-banner h1 {
+    font-weight: 700;
+}
+
+.breadcrumb {
+    background: none;
+    padding: 0;
+    margin-bottom: 0.5rem;
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    color: var(--primary-green);
+}
+
+.breadcrumb-item.active {
+    color: var(--light-text);
+}
+
+.sort-controls {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* --- Swiper JS Slider Styling --- */
+.product-slider {
+    padding-bottom: 50px; /* Ruang untuk paginasi */
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--primary-green) !important; /* Gunakan warna hijau utama kita */
+}
+
+.swiper-pagination-bullet-active {
+    background-color: var(--primary-green) !important; /* Warna titik aktif */
+}
+
+/* --- Perbaikan untuk Kartu Produk Agar Sejajar --- */
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-title {
+    /* Batasi judul produk menjadi 2 baris */
+    height: 3em; /* Sesuaikan nilai ini jika font Anda lebih besar/kecil */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.product-card .mt-auto {
+    margin-top: auto; /* Mendorong harga & tombol ke bawah */
+}
+
+/* --- Star Rating System --- */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    font-size: 2rem;
+    color: #ddd;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ffc107; /* Warna bintang kuning */
+}
+
+/* --- Redesain Hero Section --- */
+.hero-section {
+    /* Ganti background abu-abu dengan gambar berkualitas tinggi */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1974&auto=format&fit=crop');
+    height: 70vh; /* Sedikit lebih tinggi untuk kesan premium */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+}
+
+.hero-section h1 {
+    font-weight: 800; /* Lebih tebal dan kuat */
+    font-size: 3.5rem;
+    letter-spacing: -1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-section p.lead {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 1.25rem;
+}
+
+.hero-section .search-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-section .search-form .form-control {
+    border: none;
+    background-color: white;
+}
+.hero-section .search-form .form-control:focus {
+    box-shadow: none;
+}
+
+.hero-section .search-form .btn {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+/* --- Redesain Footer (Dark Theme) --- */
+.main-footer {
+    background-color: #2c3e50; /* Warna biru-abu tua yang elegan */
+    color: rgba(255, 255, 255, 0.7);
+    padding: 4rem 0 2rem 0;
+}
+
+.main-footer h6 {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: white;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Garis aksen di bawah judul footer */
+.main-footer h6::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-green);
+}
+
+.main-footer p {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease-in-out;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.footer-contact i {
+    width: 20px;
+    margin-right: 10px;
+    color: var(--primary-green);
+}
+
+.footer-copyright {
+    background-color: #233140; /* Warna yang sedikit lebih gelap */
+    color: rgba(255, 255, 255, 0.5);
+    padding: 1.5rem 0;
+}
+
+.footer-copyright a {
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+/* --- Redesain Bagian Kategori & Produk Unggulan --- */
+
+/* Latar Belakang Section yang Lebih Bersih */
+.section-white {
+    background-color: #ffffff;
+    padding: 4rem 0;
+}
+.section-light {
+    background-color: #f8f9fa;
+    padding: 4rem 0;
+}
+
+/* Judul Section yang Lebih Elegan */
+.section-title {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+.section-title h2 {
+    font-weight: 700;
+    font-size: 2.25rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+.section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-green);
+}
+
+
+/* Kartu Kategori Baru */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--dark-text);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+.category-card .icon-circle {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1rem;
+    background-color: #e9f5ee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-green);
+    font-size: 1.75rem;
+    transition: all 0.3s ease;
+}
+.category-card h5 {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+}
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-color: var(--primary-green);
+}
+.category-card:hover .icon-circle {
+    background-color: var(--primary-green);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Efek Zoom pada Gambar Produk */
+.product-card .card-img-top {
+    transition: transform 0.4s ease;
+}
+.product-card:hover .card-img-top {
+    transform: scale(1.05);
+}
