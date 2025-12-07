@@ -1,56 +1,58 @@
-# 🛒 Sembako Maju Jaya
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=30&pause=1000&color=F7F7F7&center=true&vCenter=true&width=600&lines=Hi+There!+%F0%9F%91%8B;I'm+an+Informatics+Student;From+Universitas+Majalengka" alt="Typing SVG" />
+</div>
+  <h2 align="center">👋 Hallo Guys <br>
+  Perkenalkan Nama Aku Muhamad Anugrah Aidil Akbar <br>
+  Sering Dipanggil Aidil</h2>
 
-> Sembako Lengkap, Harga Hemat.
+### 📌 Student Information
 
-**Sembako Maju Jaya** adalah proyek website E-Commerce yang dirancang untuk menyediakan kebutuhan pokok berkualitas dengan harga terbaik. Temukan semua kebutuhan Anda di sini, mulai dari beras, minyak, mie instan, hingga bumbu dapur. Kualitas terjamin, diantar sampai depan pintu rumah Anda.
-
-## 👨‍💻 Data Diri Pembuat
-
-Proyek ini disusun untuk memenuhi tugas mata kuliah Pengembangan Aplikasi Berbasis Web.
-
-| Keterangan | Data |
+| Attribute | Detail |
 | :--- | :--- |
-| **Nama** | Muhamad Anugrah Aidil Akbar |
-| **NIM / NPM** | 2424101039 |
-| **Semester** | 3A |
-| **Program Studi** | Informatika |
-| **Fakultas** | Teknik |
+| **NPM** | **2414101039** |
+| **Kelas** | IF-3A |
+| **Semester** | 3 |
 | **Universitas** | Universitas Majalengka |
 
-## 📸 Galeri / Tampilan
+---
 
-Berikut adalah beberapa tampilan dari website Sembako Maju Jaya:
+### 🚀 About Me
 
-| Tampilan Utama (Hero) | Kategori & Produk Unggulan | Daftar Produk & Footer |
-| :---: | :---: | :---: |
-| <img src="Screenshot 2025-10-27 144718.png" alt="Homepage Sembako Maju Jaya" width="300"> | <img src="Screenshot 2025-10-27 144728.png" alt="Kategori dan Produk Unggulan" width="300"> | <img src="Screenshot 2025-10-27 144738.png" alt="Daftar Produk dan Footer" width="300"> |
-
-*(Catatan: Ganti nama file di atas jika berbeda, atau unggah gambar ke GitHub agar bisa tampil)*
-
-## ✨ Fitur Utama
-
-Website ini memiliki beberapa fitur inti yang mendukung fungsionalitas e-commerce:
-
-**Bagi Pengguna (User):**
-* **Pencarian Produk:** Pengguna dapat dengan mudah mencari produk (seperti minyak, beras, gula).
-* **Registrasi & Login:** Sistem autentikasi untuk pengguna baru dan pengguna terdaftar.
-* **Keranjang Belanja:** Pengguna dapat menambahkan produk ke keranjang sebelum melakukan checkout.
-* **Jelajah Kategori:** Menampilkan produk berdasarkan kategori (Beras, Bumbu Dapur, Mie Instan, dll.).
-* **Daftar Produk Unggulan:** Menampilkan produk-produk yang sedang promo atau paling laku.
-
-**Bagi Admin:**
-* **Login Admin:** Halaman login terpisah untuk administrator.
-* **(Asumsi) Manajemen Produk:** Admin dapat menambah, mengedit, dan menghapus produk.
-* **(Asumsi) Manajemen Kategori:** Admin dapat mengelola kategori produk.
-* **(Asumsi) Manajemen Pesanan:** Admin dapat melihat dan mengelola pesanan yang masuk dari pelanggan.
-
-## 💻 Teknologi yang Digunakan
-
-Proyek ini kemungkinan besar dibangun menggunakan tumpukan teknologi berikut:
-
-* **Backend:** PHP (Native)
-* **Database:** MySQL
-* **Frontend:** HTML, CSS, JavaScript
+- 🔭 Saat ini sedang fokus mengembangkan proyek berbasis **IoT dan Web**.
+- 🎮 Memiliki passion dalam **Game Development** dan mekanika permainan.
+- 💡 Senang mengeksplorasi bagaimana perangkat keras dan perangkat lunak dapat terintegrasi.
+- 💼 Terbuka untuk diskusi seputar teknologi dan kolaborasi proyek.
+- 📫 Hubungi saya via email: **Nope**
 
 ---
-*Terima kasih telah mengunjungi repositori ini!*
+
+### 🛠️ Technical Skills
+
+**Web Development:**
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=flat&logo=javascript&logoColor=%23F7DF1E)
+![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=flat&logo=php&logoColor=white)
+
+**IoT & Systems:**
+![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=flat&logo=c%2B%2B&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54)
+![Arduino](https://img.shields.io/badge/-Arduino-00979D?style=flat&logo=Arduino&logoColor=white)
+
+**Game Dev:**
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=flat&logo=c-sharp&logoColor=white)
+![Unity](https://img.shields.io/badge/unity-%23000000.svg?style=flat&logo=unity&logoColor=white)
+
+---
+
+### 📊 Github Stats
+
+<p align="left">
+  <img src="https://github-readme-stats.vercel.app/api?username=[username-github]&show_icons=true&theme=graywhite&hide_border=true&count_private=true" alt="stats" />
+</p>
+
+<p align="left">
+  <a href="https://linkedin.com/in/[username-linkedin]">
+    <img src="https://img.shields.io/badge/Connect_on-LinkedIn-blue?style=flat&logo=linkedin" alt="LinkedIn">
+  </a>
+</p>
